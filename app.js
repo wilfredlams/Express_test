@@ -13,11 +13,11 @@ app.get('/post', function(req, res){
 });
 
 app.get('/check', function (req, res) {
-  res.send('<p>GET request detected.</p><p><a href="/">Back</a></p>');
+  res.send('<h2>GET request detected.</p><p><a href="/">Back</a></h2>');
 });
 
 app.post('/check', function (req, res) {
-  res.send('<p>POST request detected.</p><p><a href="/">Back</a></p>');
+  res.send('<h2>POST request detected.</p><p><a href="/">Back</a></h2>');
 });
 
 var server = app.listen(5000, function () {
