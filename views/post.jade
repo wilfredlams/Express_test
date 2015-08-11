@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    form(name='form1', method='post', action='check')
+      input#post(type='submit', name='post', value='Click here to POST request to /check')
+    p
+      | Or click 
+      a(href='/') here
+      |  to return to the main menu.

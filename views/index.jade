@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  html
+  head
+  title Hello World
+     body
+    p
+      | Click 
+      a(href='post') here
+      |  to use the POST submission form.
+    p
+      | Click 
+      a(href='check') here
+      |  to sent a GET request to /check.
+    p
+      | Click 
+      a(href='helloworld') here
+      |  to see the hello world route.
+    p
+      | Click 
+      a(href='newuser') here
+      |  to add a new user.	
+    p
+      | Click 
+      a(href='userlist') here
+      |  to view users.	
+    p
+      | Click 
+      a(href='edit') here
+      |  to edit users.	
+    p
+      | Click 
+      a(href='delete') here
+      |  to delete users.	
