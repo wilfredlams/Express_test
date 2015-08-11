@@ -25,8 +25,6 @@ router.get('/', function(req, res, next) {
 /* POST to Add User */
 router.post('/adduser', function(req, res) {
 
-
-
     // Get our form values. These rely on the "name" attributes
     var userName = req.body.username;
     var userEmail = req.body.useremail;
@@ -56,8 +54,24 @@ router.post('/adduser', function(req, res) {
 /* POST to Edit User */
 router.post('/edituser', function(req, res) {
 
+// Get our form values. These rely on the "name" attributes
+    var oldName = req.body.oldname;
+    var oldEmail = req.body.oldemail;
+	var newName = req.body.newname;
+    var newEmail = req.body.newemail;
 
+    var User = mongoose.model('User', userSchema);
 
+    User.update({
+    username : oldName,
+    email : oldEmail
+    }, {username : newName,
+    email : newEmail
+    }
+    , function(err, removed){
+        console.log(removed);
+		res.redirect("userlist");
+     });
 
 });
 
@@ -69,8 +83,7 @@ router.post('/deleteuser', function(req, res) {
     var userName = req.body.username;
     var userEmail = req.body.useremail;
 	
-
-var User = mongoose.model('User', userSchema);
+    var User = mongoose.model('User', userSchema);
 
     User.remove({
     username : userName,
@@ -79,9 +92,7 @@ var User = mongoose.model('User', userSchema);
     , function(err, removed){
         console.log(removed);
 		res.redirect("userlist");
-     });
-
-	 
+     }); 
 
 });
 
@@ -116,6 +127,11 @@ var User = mongoose.model('User', userSchema);
 /* GET New User page. */
 router.get('/newuser', function(req, res) {
     res.render('newuser', { title: 'Add New User' });
+});
+
+/* GET Edit User page. */
+router.get('/edit', function(req, res) {
+    res.render('edit', { title: 'Edit User' });
 });
 
 /* GET Delete User page. */

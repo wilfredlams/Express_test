@@ -1,10 +1,13 @@
 extends layout
 
 block content
-    h1.
-        User List
-    ul
-        each user, i in userlist
-            li
-                a(href="mailto:#{user.email}")= user.username
+    h1= title
+    form#formDeleteUser(name="edituser",method="post",action="/edituser")
+        p
+         input#inputUserName(type="text", placeholder="old name", name="oldname")
+         input#inputUserEmail(type="text", placeholder="old email", name="oldemail")
+        p
+         input#inputUserName(type="text", placeholder="new name", name="newname")
+         input#inputUserEmail(type="text", placeholder="new email", name="newemail")
+        button#btnSubmit(type="submit") submit
     a(href='/') Back

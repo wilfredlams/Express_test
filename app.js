@@ -64,8 +64,11 @@ app.post('/check', function (req, res) {
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  res.send('Error 404: No such page! Contact administrator');
   next(err);
 });
+
+
 
 // error handlers
 
