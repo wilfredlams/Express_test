@@ -13,6 +13,9 @@ email : String
 var User = mongoose.model('User', userSchema);
 
 
+// Set our internal DB variable
+var db = mongoose.connection;
+	
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Hello World!' });
@@ -22,8 +25,7 @@ router.get('/', function(req, res, next) {
 /* POST to Add User */
 router.post('/adduser', function(req, res) {
 
-    // Set our internal DB variable
-    var db = mongoose.connection;
+
 
     // Get our form values. These rely on the "name" attributes
     var userName = req.body.username;
@@ -54,56 +56,32 @@ router.post('/adduser', function(req, res) {
 /* POST to Edit User */
 router.post('/edituser', function(req, res) {
 
-    // Set our internal DB variable
-    var db = req.db;
+
+
+
+});
+
+
+/* POST to Delete User */
+router.post('/deleteuser', function(req, res) {
 
     // Get our form values. These rely on the "name" attributes
     var userName = req.body.username;
     var userEmail = req.body.useremail;
+	
 
-    // Set our collection
-    var collection = db.get('usercollection');
+var User = mongoose.model('User', userSchema);
 
-    // Submit to the DB
-    collection.insert({
-        "username" : userName,
-        "email" : userEmail
-    }, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-        }
-        else {
-            // And forward to success page
-            res.redirect("userlist");
-        }
-    });
-});
+    User.remove({
+    username : userName,
+    email : userEmail
+    }
+    , function(err, removed){
+        console.log(removed);
+		res.redirect("userlist");
+     });
 
-
-/* GET to Delete User */
-router.get('/deleteuser', function(req, res) {
-
-    // Set our internal DB variable
-    //var db = req.db;
-
-    // Get our form values. These rely on the "name" attributes
-    //var userName = req.body.username;
-    //var userEmail = req.body.useremail;
-
-  // User.update({ userName: "wilfred"}, { $unset: { field: 1 }}, callback);
-  
-//});
-
-User.findOneAndUpdate({$pull: {userName: 'wilfred'}}, function(err, data){
-        if(err) {
-          return res.status(500).json({'error' : 'error in deleting address'});
-        }
-
-        res.json(data);
-
-      });
-
+	 
 
 });
 
@@ -138,6 +116,11 @@ var User = mongoose.model('User', userSchema);
 /* GET New User page. */
 router.get('/newuser', function(req, res) {
     res.render('newuser', { title: 'Add New User' });
+});
+
+/* GET Delete User page. */
+router.get('/delete', function(req, res) {
+    res.render('delete', { title: 'Delete User' });
 });
 
 
